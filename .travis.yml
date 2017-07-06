@@ -47,6 +47,16 @@ deploy:
     on:
       repo: SkygearIO/skygear-doc
       branch: $PRODUCTION_BRANCH
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY_ID
+    secret_access_key: $AWS_SECRET_ACCESS_KEY
+    bucket: $PRODUCTION_V1_BUCKET
+    skip_cleanup: true
+    acl: public_read
+    local_dir: build
+    on:
+      repo: SkygearIO/skygear-doc
+      branch: $PRODUCTION_V1_BRANCH
 
 after_deploy:
   - ./scripts/after-deploy.sh
@@ -58,8 +68,10 @@ notifications:
 env:
   global:
     - PRODUCTION_BRANCH="production"
+    - PRODUCTION_V1_BRANCH="production-v1"
     - STAGING_BRANCH="staging"
     - PRODUCTION_BUCKET="docs.skygear.io"
+    - PRODUCTION_V1_BUCKET="skygear-docs-v1"
     - STAGING_BUCKET="docs-staging.skygear.io"
     # AWS_ACCESS_KEY_ID
     - secure: "u/3cyaOW8G4C3/oMSrWPNDEU6CcCmhPSweDwc1EEf/ch0jVC4LfQxtE9kLQRNO9uxCUOgZohMvBn+pArw7b6VPSjnMUhB6rldfjK7R2k+tLH/eSnkCQYaETLoZDqquJmzfrYcFd++pdSwZ8hFRgAOG7UkbII+cK88Q7ZYVeP6HwElLTm+zmyk7S56PQoohGVRgfJbSK34hLJfXMAG7n1nk+WckRX0CmmTMyZlrNOj6XeehXiZLhxY3/uKz0LvMv6ZLK3TgPtwz6jDrUi3uDn1Be6q4DrD3nkcmxjIRrmtvaxYYDw/Ulheg+eOuQwfMvr2RiUgeYOMDCqgqO2ljoMEvcZEBEc41WqHFakDHKWBOA4ideicVY1Y6QWpUah2p/ATPaPi3j0JkMtm3eer60+587viGfyomiH7YoeO5hUAXopipd0cmy+VzEzE7Jvw7vfes4isG+g7JWvKLh6L97tX9YhtmLcffqAmb8p7jJzn9kFMdRAYd+zsAgf0miQDUtDnhT/BTxHHafYvrTXOL+iAm9AVazyLr1XqsPtY2NxhhIK46ePEB6ivpqCaKnrVcvSVdxPTRvcQgnmz36MF4/OXLVz95x8kUOzrK0a8+OP8w7+M+iGcic0zZdMqG7iFKv6zRthx67wGgg71VzmPaqhHa6fxHAj6w7VEK68NJ/6fjg="
